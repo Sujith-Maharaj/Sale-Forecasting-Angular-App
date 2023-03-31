@@ -3,6 +3,7 @@ from flask_mongoengine import MongoEngine
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def sample():
     return "Hello Get Request..!!"
