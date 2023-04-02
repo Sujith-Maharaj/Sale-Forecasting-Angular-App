@@ -1,20 +1,18 @@
-from flask import Flask, request
-from flask_mongoengine import MongoEngine
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
 
-@app.route("/")
-def sample():
-    return "Hello Get Request..!!"
+@app.route("/api/login", methods=['POST'])
+def login():
+    username: request.json.get('username')
+    password: request.json.get('password')
 
-@app.route("/testpost", methods=["POST"])
-def testpost():
-    if request.method == "POST":
-        data = request.json
-        return {"status": "success", "message":"Data Received"}, 200
+    if username == 'admin' and password == 'admin':
+        return jsonify({'success': True}), 200
     else:
-        return {"status": "error", "message": "Invalid request method..!"}
+        return jsonify({'success': False, 'message': 'Invalid credentials'}), 401
+
 
 if __name__ =="__main__":
     app.run(debug=True)

@@ -1,0 +1,13 @@
+.sign-up-link {
+    font-size: 15px;
+    margin-left: 10px;
+}
+.color{
+    background-color: aliceblue;
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
