@@ -1,0 +1,23 @@
+<div class="form-container mat-elevation-z5" style="margin-top: 65px;">
+    <h1 class="center">Sign Up</h1>
+    
+    <form [formGroup]="signupform" (ngSubmit)="onSubmit()" class="margin-top">
+        <mat-form-field class="margin-top">
+            <input matInput placeholder="Email address" formControlName="email" [ngModel]="Email" />
+            <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
+            <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput placeholder="Password" formControlName="password" type="password" [ngModel]="Password" />
+            <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+            <mat-error *ngIf="password?.errors?.['pattern']">Password length must be greater than 8 with letters and numbers and characters</mat-error>
+        </mat-form-field>
+        <div class="center margin-top">
+        <button mat-raised-button color="primary" type="submit">
+            Sign Up
+        </button>
+        </div>
+        <span class="center margin-top top">Already a customer <button mat-button color="accent" (click)="onclick()" class="sign-up-link">Login..!</button></span>
+    </form>
+</div>
