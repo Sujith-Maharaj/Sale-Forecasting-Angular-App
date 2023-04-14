@@ -1,1 +1,44 @@
-<p>dashboard works!</p>
+<div class="container">
+    <mat-card class="mat-elevation-z5">
+        <mat-card-header>
+            <mat-card-title>Forecast Sales</mat-card-title>
+    </mat-card-header>
+    
+<mat-card-content>
+<form class="form" (ngSubmit)="onSubmit(forecastForm)" #forecastForm="ngForm">
+    <div class="file-input-container">
+    <input class="file-input" type="file" (change)="onfilechange($event)" [(ngModel)]="fileToUpload">
+    <label class="file-input-label">{{ filename?filename :'Upload Data File' }}</label>
+    </div>
+
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Forecast Type</mat-label>
+        <select class="select" matNativeControl [(ngModel)]="forecastType" name="ForecastType">
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+        </select>
+
+        <!-- <mat-select (ngModel)="forecastType" name="'ForecastType">
+            <mat-option value ="monthly">Monthly</mat-option>
+            <mat-option value ="yearly">Yearly</mat-option>
+        </mat-select>  -->
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+        <mat-label>periodicity</mat-label>
+        <input matInput type="number" [(ngModel)]="periodicity" name="periodicity" class="input">
+    </mat-form-field>
+
+    <button type="submit" class="submit-button" mat-raised-button color="primary">Forecast</button>
+
+</form>
+</mat-card-content>
+</mat-card>
+</div>
+
+<div *ngIf="forecastedData">
+    <h2 >ARIMA FORECAST</h2>
+    <pre>{{ arimaForecast | json }}</pre>
+    <h2 >SARIMA FORECAST</h2>
+    <pre>{{ sarimaForecast | json }}</pre>
+</div>

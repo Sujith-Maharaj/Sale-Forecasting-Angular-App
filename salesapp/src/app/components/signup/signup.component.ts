@@ -33,8 +33,12 @@ export class SignupComponent {
   onSubmit(){
     const{email, password} = this.signupform.value;
     this.http.post('http://127.0.0.1:5000/signup', { email, password})
-      .subscribe(response => {console.log(response); this.router.navigate(['dash'])});
-  }
+      .subscribe(response => {
+        console.log(response)
+        alert("Signedp successfully...please login to use this application")
+        this.router.navigate(['login'])
+      });
+    }
 
   onclick(){
     this.router.navigate(['login'])
