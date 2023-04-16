@@ -1,10 +1,7 @@
-from flask import Flask ,request, jsonify
+import os
+from flask import Flask ,request, jsonify, send_file
 from flask_cors import CORS
 import pymongo
-import pandas as pd
-from statsmodels.tsa.arima.model import ARIMA
-from statsmodels.tsa.statespace.sarimax import SARIMAX
-import matplotlib.pyplot as plt
 
 # creating the Flask app
 app = Flask(__name__)
@@ -42,69 +39,35 @@ def login():
         return jsonify({'message': "Invalid email or password"}),401
     
 
-@app.route('/predict', methods=["POST"])
+@app.route('/predict', methods=["GET","POST"])
 def forecast_sales():
-    file = request.files['file']
-    forecast_type = request.form['forecast_type']
-    periodicity = int(request.form['periodicity'])
+    # Get file, forecast_type, and periodicity from request form
+    file = request.form.get['file']
+    forecast_type = request.form.get['forecast_type']
+    periodicity = int(request.form.get['periodicity'])
 
-    sales_data = pd.read_csv(file)
+    # Save uploaded file to a temporary location
+    file.save('uploaded_file.csv')
 
-    sales_data['Date'] = pd.to_datetime(sales_data['Date'], format='%Y-%m')
-    sales_data.set_index('Date', inplace=True)
+    # Call forecast_sales function to generate forecasts
+    forecasted_data = forecast_sales('uploaded_file.csv', forecast_type, periodicity)
 
-    monthly_sales_data = sales_data.resample('m').sum()
-
-    yearly_sales_data = sales_data.resample('Y').sum()
-
-    # Function to train arima model
-    def train_arima_model(data):
-        model = ARIMA(data, order=(1,0,0))
-        model_fit = model.fit()
-        return model_fit
-    
-    #Function to train sarima model
-    def train_sarima_model(data):
-        model = SARIMAX(data, order=(1,0,0), seasonal_order=(0,1,1,12))
-        model_fit = model.fit()
-        return model_fit
-
-    if forecast_type == 'monthly':
-        arima_model_monthly = train_arima_model(monthly_sales_data['Price'])
-        sarima_model_monthly = train_sarima_model(monthly_sales_data['Price'])
-        arima_forecast = arima_model_monthly.forecast(steps=25)
-        sarima_forecast = sarima_model_monthly.forecast(steps=25)
-    elif forecast_type == 'yearly':
-        arima_model_yearly = train_arima_model(yearly_sales_data['Price'])
-        sarima_model_yearly = train_sarima_model(yearly_sales_data['Price'])
-        arima_forecast = arima_model_yearly.forecast(steps=periodicity)
-        sarima_forecast = sarima_model_yearly.forecast(steps=periodicity)
-
-    # Plot ARIMA forecast
-    plt.figure(figsize=(10, 5))
-    plt.plot(arima_forecast, label='ARIMA Forecast')
-    plt.xlabel('Time')
-    plt.ylabel('Sales')
-    plt.title('ARIMA Forecast of Sales')
-    plt.legend()
-    plt.savefig('arima_forecast.png')  # Save plot as image file
-
-    # Plot SARIMA forecast
-    plt.figure(figsize=(10, 5))
-    plt.plot(sarima_forecast, label='SARIMA Forecast')
-    plt.xlabel('Time')
-    plt.ylabel('Sales')
-    plt.title('SARIMA Forecast of Sales')
-    plt.legend()
-    plt.savefig('sarima_forecast.png')  # Save plot as image file
-
-    plt.close()  # Close plot
-
-    forecastedData = {
-        'arima_forecast': arima_forecast.to_list(),
-        'sarima_forecast': sarima_forecast.to_list()
+    # Return the forecasted data as JSON response along with the saved plot images
+    return_data = {
+        'arima_forecast': forecasted_data['arima_forecast'],
+        'sarima_forecast': forecasted_data['sarima_forecast']
     }
-    return jsonify(forecastedData)
+
+    # Send the saved plot images as file attachments in the JSON response
+    return_data['arima_plot'] = send_file('arima_forecast.png', mimetype='image/png')
+    return_data['sarima_plot'] = send_file('sarima_forecast.png', mimetype='image/png')
+
+    # Clean up the temporary files
+    os.remove('uploaded_file.csv')
+    os.remove('arima_forecast.png')
+    os.remove('sarima_forecast.png')
+
+    return jsonify(return_data)
 
 
 # lets run our app

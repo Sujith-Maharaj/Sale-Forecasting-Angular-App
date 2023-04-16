@@ -9,14 +9,16 @@ import { AngularMaterialModule } from './angular.material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainpageComponent } from './components/mainpage/mainpage.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     LoginComponent,
-    DashboardComponent
+    MainpageComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     HttpClientModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

@@ -1,0 +1,49 @@
+  <mat-card class="mat-elevation-z5 form-container" style="margin-top: 65px;">
+  <mat-card-header class="center">
+      <mat-card-title>Forecast Sales</mat-card-title>
+  </mat-card-header>
+  
+<mat-card-content>
+<form class="form" (ngSubmit)="onSubmit()" #forecastForm="ngForm">
+
+  <div class="file-input-container">
+    <input type="file" id="file-input" class="file-input" (change)="onFileSelected($event)">
+    <label for="file-input" class="file-input-label">{{selectedFileName || 'Choose File'}}</label>
+  </div>
+  
+  
+  <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Forecast Type</mat-label>
+      <select class="select" matNativeControl [(ngModel)]="forecastType" name="ForecastType">
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+      </select>
+
+      <!-- <mat-select (ngModel)="forecastType" name="'ForecastType">
+          <mat-option value ="monthly">Monthly</mat-option>
+          <mat-option value ="yearly">Yearly</mat-option>
+      </mat-select>  -->
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+      <mat-label>periodicity</mat-label>
+      <input matInput type="number" [(ngModel)]="periodicity" name="periodicity" class="input">
+  </mat-form-field>
+
+  <button type="submit" class="submit-button" mat-raised-button color="primary">Forecast</button>
+
+</form>
+</mat-card-content>
+</mat-card>
+
+
+<div *ngIf="forecastData">
+  <h2 class="forecast-title">ARIMA FORECAST</h2>
+  <img [src]="arimaPlotUrl" alt="ARIMA Forecast">
+  <h2 class="forecast-title">SARIMA FORECAST</h2>
+  <img [src]="sarimaPlotUrl" alt="SARIMA Forecast">
+</div>
+
+<div *ngIf="error" class="error-message">
+  <p>{{ error }}</p>
+</div>
