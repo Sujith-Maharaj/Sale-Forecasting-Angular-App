@@ -1,0 +1,39 @@
+.center{
+    display:block;
+    text-align: center;
+    align-items: center;
+}
+
+.margin{
+    margin-top: 200px;
+}
+
+.size{
+    font-size: 50px;
+    margin-bottom: 100px;
+}
+
+.size1{
+    font-size: 50px;
+}
+
+.color{
+    color: rgb(41, 2, 214);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 60px;
+}
+
+.left{
+    padding-left: 90px;
+    padding-right: 90px;
+
+}
+
+.color3{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: rgba(255, 232, 210, 0.56);
+}

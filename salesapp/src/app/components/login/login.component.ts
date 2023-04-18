@@ -33,7 +33,7 @@ export class LoginComponent {
     this.http.post('http://127.0.0.1:5000/login', { email: this.Email, password: this.Password }).subscribe(
       (response:any) => {
         alert("login success..!")
-        this.router.navigate(['fileupload'])
+        this.router.navigate(['home'])
       },
       (error: any) =>{
         alert("Invalid credentials..!")
@@ -42,7 +42,7 @@ export class LoginComponent {
   }
 
   onclick(){
-    this.router.navigate(['signup'])
+    this.router.navigate(['/signup'])
   }
 
 }

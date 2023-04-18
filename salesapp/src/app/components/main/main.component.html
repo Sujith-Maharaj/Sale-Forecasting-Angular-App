@@ -1,0 +1,72 @@
+<nav class="navbar justify-content-between">
+Sale Prediction Application
+</nav>
+
+<div class="card">
+  <h1>Forecast Sales</h1>
+  <form>
+    <div class="form-group">
+      <label for="file-input">File:</label>
+      <input id="file-input" type="file" (change)="onFileSelected($event)">
+    </div>
+    <div class="form-group">
+      <label for="forecast-type-select">Forecast Type:</label>
+      <select id="forecast-type-select" [(ngModel)]="forecastType">
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="periodicity-input">Periodicity:</label>
+      <input id="periodicity-input" type="number" (ngModel)="periodicity">
+    </div>
+    <div class="form-group">
+      <button (click)="onForecast()">Forecast</button>
+    </div>
+  </form>
+</div>
+
+  <div *ngIf="arimaForecast && sarimaForecast" class="forecast-container" class="forecast-container card">
+    <div>
+      <h2>ARIMA Forecast</h2>
+      <table class="forecast-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let forecast of arimaForecast">
+            <td>{{ forecast.Date }}</td>
+            <td>{{ forecast.Price }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+      <h2>SARIMA Forecast</h2>
+      <table class="forecast-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let forecast of sarimaForecast">
+            <td>{{ forecast.Date }}</td>
+            <td>{{ forecast.Price }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br><br><br>
+    <button *ngIf="showImage" (click)="viewImage()" class="view-image-button">View Image</button>
+  </div>
+  <div>
+  </div>
+

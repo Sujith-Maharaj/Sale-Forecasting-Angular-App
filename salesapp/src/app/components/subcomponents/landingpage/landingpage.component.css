@@ -1,0 +1,32 @@
+.landing-page-card {
+    display: flex;
+    flex-direction: row;
+  }
+
+  h1{
+    font-size: 40px;
+    font-weight: bolder;
+    margin-bottom: 40px;
+  }
+
+  button{
+    margin-top: 20px;
+  }
+  
+  .landing-page-text {
+    padding: 150px;
+    font-size: small;
+  }
+  
+  .landing-page-image {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 24px;
+    margin-left: 10px;
+  }
+  
+  .landing-page-image img {
+    max-width: 100%;
+    max-height: 100%;
+  }

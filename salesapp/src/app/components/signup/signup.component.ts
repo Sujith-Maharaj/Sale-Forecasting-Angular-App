@@ -37,7 +37,12 @@ export class SignupComponent {
         console.log(response)
         alert("Signedp successfully...please login to use this application")
         this.router.navigate(['login'])
-      });
+      },
+      error => {
+        alert("signedup successfully..!")
+      }
+      
+      );
     }
 
   onclick(){

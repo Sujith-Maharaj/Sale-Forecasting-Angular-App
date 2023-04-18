@@ -10,15 +10,33 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MainpageComponent } from './components/mainpage/mainpage.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MainComponent } from './components/main/main.component';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/subcomponents/about/about.component';
+import { ContactComponent } from './components/subcomponents/contact/contact.component';
+import { FooterComponent } from './components/subcomponents/footer/footer.component';
+import { LandingpageComponent } from './components/subcomponents/landingpage/landingpage.component';
+import { NavbarComponent } from './components/subcomponents/navbar/navbar.component';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { ViewComponent } from './components/subcomponents/view/view.component';
+import { ErrorpageComponent } from './components/errorpage/errorpage.component';
+import { FrontpageComponent } from './components/frontpage/frontpage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     LoginComponent,
-    MainpageComponent
+    MainComponent,
+    HomeComponent,
+    AboutComponent,
+    ContactComponent,
+    FooterComponent,
+    LandingpageComponent,
+    NavbarComponent,
+    ViewComponent,
+    ErrorpageComponent,
+    FrontpageComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +46,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatFormFieldModule
+    NgxMatFileInputModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

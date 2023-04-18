@@ -4,6 +4,7 @@ from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import matplotlib.pyplot as plt
 
+
 def forecast_sales(file, forecast_type, periodicity):
 
     sales_data = pd.read_csv(file)
@@ -31,8 +32,8 @@ def forecast_sales(file, forecast_type, periodicity):
     if forecast_type == 'monthly':
         arima_model_monthly = train_arima_model(monthly_sales_data['Price'])
         sarima_model_monthly = train_sarima_model(monthly_sales_data['Price'])
-        arima_forecast = arima_model_monthly.forecast(steps=25)
-        sarima_forecast = sarima_model_monthly.forecast(steps=25)
+        arima_forecast = arima_model_monthly.forecast(steps=periodicity)
+        sarima_forecast = sarima_model_monthly.forecast(steps=periodicity)
     elif forecast_type == 'yearly':
         arima_model_yearly = train_arima_model(yearly_sales_data['Price'])
         sarima_model_yearly = train_sarima_model(yearly_sales_data['Price'])
@@ -42,7 +43,7 @@ def forecast_sales(file, forecast_type, periodicity):
     # Plot ARIMA forecast
     plt.figure(figsize=(10, 5))
     plt.plot(arima_forecast, label='ARIMA Forecast')
-    plt.xlabel('Time')
+    plt.xlabel('Date')
     plt.ylabel('Sales')
     plt.title('ARIMA Forecast of Sales')
     plt.legend()
@@ -51,7 +52,7 @@ def forecast_sales(file, forecast_type, periodicity):
     # Plot SARIMA forecast
     plt.figure(figsize=(10, 5))
     plt.plot(sarima_forecast, label='SARIMA Forecast')
-    plt.xlabel('Time')
+    plt.xlabel('Date')
     plt.ylabel('Sales')
     plt.title('SARIMA Forecast of Sales')
     plt.legend()

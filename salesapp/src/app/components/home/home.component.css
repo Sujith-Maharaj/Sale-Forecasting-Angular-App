@@ -1,0 +1,6 @@
+body{
+    background-image: url('../../../assets/bg.jpg');
+}
+mat-toolbar{
+    justify-content: space-between;
+}
